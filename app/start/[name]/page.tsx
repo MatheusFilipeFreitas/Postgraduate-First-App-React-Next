@@ -70,15 +70,15 @@ const StartPage = async ({ params }: PageProps) => {
     // TOPIC: Layout and composition
     // =========================================================================
     // Study notes:
-    // - px-6 / py-8: horizontal and vertical padding.
     // - grid gap-y-4: vertical stack layout with spacing between children.
+    // - Page padding (px-6 py-8) lives in app/layout.tsx — shared by all routes.
     // - NameComponent receives a person object built from the route param + static data.
     // - Link href="/start": navigates back to the name list (parent route).
     //
     // Used here: vertical profile layout with image, name, hobbies, and back link.
 
     return (
-        <div className="px-6 py-8 grid gap-y-4">
+        <div className="grid gap-y-4">
             <ImageComponent />
             <NameComponent person={{ name: name, age: 20, birthDate: new Date("1990-01-01") }} />
             <Hobbies />

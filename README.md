@@ -40,19 +40,23 @@ pnpm lint    # ESLint
 | `/` | `app/page.tsx` | Default Next.js home page |
 | `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles (**Client Component**) |
 | `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (**Server Component**, e.g. `/start/Matheus`) |
+| `/medium` | `app/medium/page.tsx` | Counter demo — Server page composing a Client Component |
 
 ## Project structure
 
 ```
 app/
 ├── components/
+│   ├── count.tsx          # useState, event handlers, "use client"
 │   ├── hobbies.tsx        # Arrays, fragments, list rendering, keys
 │   ├── image.tsx          # next/image, priority, accessibility
 │   └── name-component.tsx # TypeScript types, FC, props, conditional JSX
+├── medium/
+│   └── page.tsx           # Server page importing Client Component (Count)
 ├── start/
 │   ├── page.tsx           # "use client", Link navigation, client-side logging
 │   └── [name]/page.tsx    # Dynamic routes, async Server Components, server logging
-├── layout.tsx             # Root layout, fonts, metadata
+├── layout.tsx             # Root layout, fonts, metadata, global padding
 ├── page.tsx               # Home page
 └── globals.css            # Tailwind + theme variables
 ```
@@ -68,6 +72,8 @@ app/
 - List rendering with `.map()` and `key`
 - React Fragments (`<>`)
 - Named vs default exports
+- `useState` hook and local component state
+- Event handlers (`onClick`) and re-renders
 
 ### Next.js
 
@@ -80,6 +86,8 @@ app/
 - `next/image` optimization
 - `next/font` (Geist) in root layout
 - Metadata API
+- Root layout (`children`) and shared page padding
+- Server pages composing Client Components (`/medium` + `Count`)
 
 ### TypeScript
 
@@ -117,8 +125,10 @@ This project demonstrates both rendering models side by side:
 | `/start` | `"use client"` | Browser DevTools |
 | `/start/[name]` | none (Server Component) | Terminal (`pnpm dev`) |
 | `Hobbies` component | none (Server Component) | Terminal (`pnpm dev`) |
+| `/medium` (page shell) | none (Server Component) | — |
+| `Count` component | `"use client"` | Browser DevTools (on interaction) |
 
-Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log.
+Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log. Visit `/medium` and click Increment/Decrement to see state updates in the browser.
 
 ## Notes
 
