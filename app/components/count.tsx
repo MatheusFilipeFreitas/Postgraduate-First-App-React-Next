@@ -10,7 +10,6 @@
 // Used here: enables useState and button click handlers below.
 
 'use client';
-
 // =============================================================================
 // FILE: Count
 // =============================================================================
@@ -30,9 +29,11 @@
 // Used here: count starts at 0 and updates when buttons are clicked.
 
 import { useState } from "react";
+import Button, { ButtonProps } from "./button";
 
 const Count = () => {
     const [count, setCount] = useState(0);
+    const [inputValue, setInputValue] = useState("");
 
     // =========================================================================
     // TOPIC: Event handlers
@@ -59,18 +60,25 @@ const Count = () => {
     //
     // Used here: display current count and two styled buttons.
 
+    const functions: ButtonProps[] = [
+        { label: "Increment by 3", color: "yellow", onClick: () => { setCount(count => count + 1); setCount(count => count + 1); setCount(count => count + 1); } },
+        { label: "Decrement by 3", color: "purple", onClick: () => { setCount(count => count - 3); } }
+    ];
+    
     return (
         <div>
             <h1>Count</h1>
             <p>Actual number: {count}</p>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={() => setCount(count + 1)}>
-                Increment
-            </button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={decrement}>
-                Decrement
-            </button>
+            <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <div className="flex flex-row gap-2 mt-3">
+                <Button label="Increment" color="blue" onClick={() => setCount(count + 1)} />
+                <Button label="Decrement" color="red" onClick={decrement} />
+                {functions.map((fun) => {
+                    return <Button key={`function-${fun.label}`} {...fun} />
+                })}
+            </div>
         </div>
-    );
+    )
 };
 
 export default Count;
