@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Postgraduate First App — React & Next.js
 
-## Getting Started
+Study project for learning React and Next.js (App Router). Source files use **topic-based comments** that separate study notes from implementation code — each section explains a concept before the code that uses it.
 
-First, run the development server:
+## Tech stack
+
+- **Next.js 16** (App Router, Turbopack)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS 4**
+
+## Getting started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 20+
+- [pnpm](https://pnpm.io/) (recommended)
+
+### Install and run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build   # production build
+pnpm start   # run production server
+pnpm lint    # ESLint
+```
 
-## Learn More
+## Routes
 
-To learn more about Next.js, take a look at the following resources:
+| URL | File | Description |
+|-----|------|-------------|
+| `/` | `app/page.tsx` | Default Next.js home page |
+| `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles |
+| `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (e.g. `/start/Matheus`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/
+├── components/
+│   ├── hobbies.tsx        # Arrays, fragments, list rendering, keys
+│   ├── image.tsx          # next/image, priority, accessibility
+│   └── name-component.tsx # TypeScript types, FC, props, conditional JSX
+├── start/
+│   ├── page.tsx           # Link navigation, dynamic hrefs
+│   └── [name]/page.tsx    # Dynamic routes, async Server Components
+├── layout.tsx             # Root layout, fonts, metadata
+├── page.tsx               # Home page
+└── globals.css            # Tailwind + theme variables
+```
 
-## Deploy on Vercel
+## Concepts covered
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### React
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Functional components (`FC`, arrow functions)
+- Props and TypeScript types
+- Destructuring (objects and arrays)
+- Conditional rendering (ternary, `&&`)
+- List rendering with `.map()` and `key`
+- React Fragments (`<>`)
+- Named vs default exports
+
+### Next.js
+
+- App Router file-based routing
+- Dynamic routes (`[name]`)
+- Async Server Components (`async` pages, `await params`)
+- `next/link` client-side navigation
+- `next/image` optimization
+- `next/font` (Geist) in root layout
+- Metadata API
+
+### TypeScript
+
+- Custom types (`Person`)
+- Typed props and arrays (`string[]`)
+- Component signatures with generics
+
+### Tailwind CSS
+
+- Utility classes (padding, grid, lists, hover states)
+- Dark mode variants (`dark:invert`)
+
+## Code documentation format
+
+Each study file follows this pattern:
+
+```
+// TOPIC: <concept name>
+// Study notes:
+// - What it is and why it matters
+//
+// Used here: <how this file uses it>
+
+<clean implementation code>
+```
+
+Commented **STUDY VARIANTS** at the bottom of some files show alternative patterns kept for learning.
+
+## Notes
+
+- `node_modules`, `.next`, lockfiles, and env files are gitignored — run `pnpm install` after cloning.
+- Server Component `console.log` output appears in the **terminal**, not the browser DevTools.
+
+## Repository
+
+[github.com/MatheusFilipeFreitas/Postgraduate-First-App-React-Next](https://github.com/MatheusFilipeFreitas/Postgraduate-First-App-React-Next)
+
+## Learn more
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
