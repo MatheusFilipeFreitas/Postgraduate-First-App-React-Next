@@ -1,8 +1,22 @@
 // =============================================================================
+// TOPIC: "use client" directive
+// =============================================================================
+// Study notes:
+// - "use client" marks this file as a Client Component — it runs in the browser.
+// - Required when the component uses browser-only features (e.g. useState, useEffect,
+//   event handlers) or when you want client-side re-renders and DevTools logging.
+// - Without this directive, App Router files default to Server Components.
+// - Compare with app/start/[name]/page.tsx, which has no directive and stays on the server.
+//
+// Used here: enables client-side rendering and console.log visible in browser DevTools.
+
+'use client';
+
+// =============================================================================
 // FILE: StartPage (index)
 // =============================================================================
 // Lists names as links to dynamic profile pages at /start/[name].
-// Server Component (no "use client") — renders on the server.
+// Client Component ("use client") — renders and re-renders in the browser.
 // Route: app/start/page.tsx → URL /start
 
 // =============================================================================
@@ -37,6 +51,19 @@ const names = ["Matheus", "John", "Jane", "Jim", "Jill"];
 // Used here: renders the name list for the /start route.
 
 const StartPage = () => {
+
+    // =========================================================================
+    // TOPIC: Client Component logging
+    // =========================================================================
+    // Study notes:
+    // - console.log in a Client Component runs in the browser on each render.
+    // - Output appears in the browser DevTools console (not the terminal).
+    // - Re-renders when you navigate back to /start or when React updates this component.
+    // - Compare with [name]/page.tsx and hobbies.tsx — those log on the server (terminal).
+    //
+    // Used here: confirms this page is rendered on the client.
+
+    console.log("StartPage rendered from client");
 
     // =========================================================================
     // TOPIC: List rendering and dynamic routes

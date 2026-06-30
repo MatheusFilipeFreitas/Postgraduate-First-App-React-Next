@@ -38,8 +38,8 @@ pnpm lint    # ESLint
 | URL | File | Description |
 |-----|------|-------------|
 | `/` | `app/page.tsx` | Default Next.js home page |
-| `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles |
-| `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (e.g. `/start/Matheus`) |
+| `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles (**Client Component**) |
+| `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (**Server Component**, e.g. `/start/Matheus`) |
 
 ## Project structure
 
@@ -50,8 +50,8 @@ app/
 │   ├── image.tsx          # next/image, priority, accessibility
 │   └── name-component.tsx # TypeScript types, FC, props, conditional JSX
 ├── start/
-│   ├── page.tsx           # Link navigation, dynamic hrefs
-│   └── [name]/page.tsx    # Dynamic routes, async Server Components
+│   ├── page.tsx           # "use client", Link navigation, client-side logging
+│   └── [name]/page.tsx    # Dynamic routes, async Server Components, server logging
 ├── layout.tsx             # Root layout, fonts, metadata
 ├── page.tsx               # Home page
 └── globals.css            # Tailwind + theme variables
@@ -73,7 +73,9 @@ app/
 
 - App Router file-based routing
 - Dynamic routes (`[name]`)
+- Server Components vs Client Components (`"use client"`)
 - Async Server Components (`async` pages, `await params`)
+- Server vs client `console.log` (terminal vs browser DevTools)
 - `next/link` client-side navigation
 - `next/image` optimization
 - `next/font` (Geist) in root layout
@@ -106,10 +108,21 @@ Each study file follows this pattern:
 
 Commented **STUDY VARIANTS** at the bottom of some files show alternative patterns kept for learning.
 
+## Server vs Client Components
+
+This project demonstrates both rendering models side by side:
+
+| Page | Directive | `console.log` appears in |
+|------|-----------|--------------------------|
+| `/start` | `"use client"` | Browser DevTools |
+| `/start/[name]` | none (Server Component) | Terminal (`pnpm dev`) |
+| `Hobbies` component | none (Server Component) | Terminal (`pnpm dev`) |
+
+Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log.
+
 ## Notes
 
 - `node_modules`, `.next`, lockfiles, and env files are gitignored — run `pnpm install` after cloning.
-- Server Component `console.log` output appears in the **terminal**, not the browser DevTools.
 
 ## Repository
 

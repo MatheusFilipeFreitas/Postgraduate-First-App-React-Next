@@ -53,6 +53,20 @@ const StartPage = async ({ params }: PageProps) => {
     const { name } = await params;
 
     // =========================================================================
+    // TOPIC: Server Component logging
+    // =========================================================================
+    // Study notes:
+    // - console.log in a Server Component runs on the server during render.
+    // - Output appears in the terminal (where `pnpm dev` runs), not browser DevTools.
+    // - Runs once per request/navigation — no client-side re-renders for this page.
+    // - Compare with start/page.tsx ("use client") — that page logs in the browser instead.
+    // - Same pattern as hobbies.tsx, which also logs merged data on the server.
+    //
+    // Used here: confirms this page is rendered on the server when visiting /start/[name].
+
+    console.log("StartPage rendered from server");
+
+    // =========================================================================
     // TOPIC: Layout and composition
     // =========================================================================
     // Study notes:
