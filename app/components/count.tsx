@@ -7,13 +7,13 @@
 // - Without this directive, hooks will cause a build/runtime error in the App Router.
 // - Compare with hobbies.tsx (Server Component) — no state or event handlers there.
 //
-// Used here: enables useState, controlled input onChange, and button click handlers.
+// Used here: enables useState, useEffect, controlled input onChange, and button click handlers.
 
 'use client';
 // =============================================================================
 // FILE: Count
 // =============================================================================
-// Interactive counter with reusable Button components and a controlled text input.
+// Interactive counter with Button components, controlled input, and useEffect side effects.
 // Client Component ("use client") — state and events run in the browser.
 // Used in: app/medium/page.tsx
 
@@ -28,12 +28,76 @@
 //
 // Used here: count starts at 0; inputValue starts at "initial value".
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button, { ButtonProps } from "./button";
+import { useParams } from "next/navigation";
 
 const Count = () => {
     const [count, setCount] = useState(0);
     const [inputValue, setInputValue] = useState("initial value");
+    const urlParams = useParams();
+
+    console.log("URL Params: ", urlParams);
+
+    useEffect(() => {
+        console.info("Info: URL Params changed to: ", urlParams);
+    }, [urlParams]);
+
+    // =========================================================================
+    // TOPIC: useEffect — no dependency array (runs after every render)
+    // =========================================================================
+    // Study notes:
+    // - Omitting the second argument runs the effect after every render.
+    // - Useful for debugging or syncing with something that must track all updates.
+    // - Can cause extra work or infinite loops if the effect also updates state —
+    //   prefer a dependency array in real apps unless you need every-render behavior.
+    //
+    // Used here: console.info on mount and after every count or inputValue change.
+
+    useEffect(() => {
+        console.info("Info: Component updated");
+    });
+
+    // =========================================================================
+    // TOPIC: useEffect — empty dependency array (mount only)
+    // =========================================================================
+    // Study notes:
+    // - [] runs the effect once after the initial render (like componentDidMount).
+    // - Does not re-run when state or props change.
+    // - In React Strict Mode (dev), effects may run twice to surface side-effect bugs.
+    //
+    // Used here: log when Count first appears in the browser.
+
+    useEffect(() => {
+        console.info("Info: Count component mounted");
+    }, []);
+
+    // =========================================================================
+    // TOPIC: useEffect — dependency on count
+    // =========================================================================
+    // Study notes:
+    // - [count] re-runs the effect when count changes (skips unrelated re-renders).
+    // - React compares dependency values between renders with Object.is.
+    // - The effect runs after render, so it always sees the latest count.
+    //
+    // Used here: log whenever the counter value changes.
+
+    useEffect(() => {
+        console.info("Info: count changed to: ", count);
+    }, [count]);
+
+    // =========================================================================
+    // TOPIC: useEffect — dependency on inputValue
+    // =========================================================================
+    // Study notes:
+    // - [inputValue] re-runs only when the controlled input state changes.
+    // - Separating effects by concern keeps each callback focused on one piece of state.
+    //
+    // Used here: log whenever the input text changes (typing or Clear).
+
+    useEffect(() => {
+        console.info("Info: inputValue changed to: ", inputValue);
+    }, [inputValue]);
 
     // =========================================================================
     // TOPIC: Event handlers
@@ -61,11 +125,11 @@ const Count = () => {
     //   React state until the next re-render (that is expected, not a bug).
     // - setInputValue does not update inputValue immediately in the same handler.
     //
-    // Used here: typing logs old state vs new DOM value; Clear resets via the same handler.
+    // Used here: typing logs old state vs new DOM value (console.warn); Clear resets via the same handler.
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("old value: ", inputValue);
-        console.log("new value: ", e.target.value);
+        console.warn("Warning: old value: ", inputValue);
+        console.warn("Warning: new value: ", e.target.value);
         setInputValue(e.target.value);
     }
 

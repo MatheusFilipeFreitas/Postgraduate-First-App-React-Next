@@ -40,7 +40,7 @@ pnpm lint    # ESLint
 | `/` | `app/page.tsx` | Default Next.js home page |
 | `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles (**Client Component**) |
 | `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (**Server Component**, e.g. `/start/Matheus`) |
-| `/medium` | `app/medium/page.tsx` | Counter demo — Button composition, batch updates, controlled input |
+| `/medium` | `app/medium/page.tsx` | Counter demo — useEffect, Button composition, controlled input |
 
 ## Project structure
 
@@ -48,7 +48,7 @@ pnpm lint    # ESLint
 app/
 ├── components/
 │   ├── button.tsx         # Reusable Button, FC, exported ButtonProps, Tailwind colors
-│   ├── count.tsx          # useState, Button composition, controlled input, functional updates
+│   ├── count.tsx          # useState, useEffect, Button composition, controlled input
 │   ├── hobbies.tsx        # Arrays, fragments, list rendering, keys
 │   ├── image.tsx          # next/image, priority, accessibility
 │   └── name-component.tsx # TypeScript types, FC, props, conditional JSX
@@ -74,6 +74,7 @@ app/
 - React Fragments (`<>`)
 - Named vs default exports
 - `useState` hook and local component state
+- `useEffect` hook (no deps, mount-only `[]`, and targeted `[state]` deps)
 - Functional state updates (`setState(prev => prev + 1)`)
 - Controlled inputs (`value` + `onChange`)
 - Component composition and props spreading (`{...props}`)
@@ -125,16 +126,16 @@ Commented **STUDY VARIANTS** at the bottom of some files show alternative patter
 
 This project demonstrates both rendering models side by side:
 
-| Page | Directive | `console.log` appears in |
-|------|-----------|--------------------------|
+| Page / component | Directive | Logs appear in |
+|------|-----------|----------------|
 | `/start` | `"use client"` | Browser DevTools |
 | `/start/[name]` | none (Server Component) | Terminal (`pnpm dev`) |
 | `Hobbies` component | none (Server Component) | Terminal (`pnpm dev`) |
 | `/medium` (page shell) | none (Server Component) | — |
-| `Count` component | `"use client"` | Browser DevTools (on interaction) |
+| `Count` component | `"use client"` | Browser DevTools (mount, state changes, input) |
 | `Button` component | none (composed inside Count) | — |
 
-Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log. Visit `/medium` and click Increment/Decrement or type in the input to see state updates and controlled-input logs in the browser.
+Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log. Visit `/medium` and open DevTools: mount logs (`console.info`) fire on load; typing shows controlled-input warnings (`console.warn`); clicking buttons updates count and triggers dependency-based effects.
 
 ## Notes
 
