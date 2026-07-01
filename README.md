@@ -40,14 +40,15 @@ pnpm lint    # ESLint
 | `/` | `app/page.tsx` | Default Next.js home page |
 | `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles (**Client Component**) |
 | `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (**Server Component**, e.g. `/start/Matheus`) |
-| `/medium` | `app/medium/page.tsx` | Counter demo — Server page composing a Client Component |
+| `/medium` | `app/medium/page.tsx` | Counter demo — Button composition, batch updates, controlled input |
 
 ## Project structure
 
 ```
 app/
 ├── components/
-│   ├── count.tsx          # useState, event handlers, "use client"
+│   ├── button.tsx         # Reusable Button, FC, exported ButtonProps, Tailwind colors
+│   ├── count.tsx          # useState, Button composition, controlled input, functional updates
 │   ├── hobbies.tsx        # Arrays, fragments, list rendering, keys
 │   ├── image.tsx          # next/image, priority, accessibility
 │   └── name-component.tsx # TypeScript types, FC, props, conditional JSX
@@ -73,7 +74,11 @@ app/
 - React Fragments (`<>`)
 - Named vs default exports
 - `useState` hook and local component state
-- Event handlers (`onClick`) and re-renders
+- Functional state updates (`setState(prev => prev + 1)`)
+- Controlled inputs (`value` + `onChange`)
+- Component composition and props spreading (`{...props}`)
+- Reusable components with exported prop types (`ButtonProps`)
+- Event handlers (`onClick`, `onChange`) and re-renders
 
 ### Next.js
 
@@ -87,7 +92,7 @@ app/
 - `next/font` (Geist) in root layout
 - Metadata API
 - Root layout (`children`) and shared page padding
-- Server pages composing Client Components (`/medium` + `Count`)
+- Server pages composing Client Components (`/medium` + `Count` + `Button`)
 
 ### TypeScript
 
@@ -127,8 +132,9 @@ This project demonstrates both rendering models side by side:
 | `Hobbies` component | none (Server Component) | Terminal (`pnpm dev`) |
 | `/medium` (page shell) | none (Server Component) | — |
 | `Count` component | `"use client"` | Browser DevTools (on interaction) |
+| `Button` component | none (composed inside Count) | — |
 
-Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log. Visit `/medium` and click Increment/Decrement to see state updates in the browser.
+Visit `/start` and open DevTools to see the client log. Visit `/start/Matheus` and check the terminal for the server log. Visit `/medium` and click Increment/Decrement or type in the input to see state updates and controlled-input logs in the browser.
 
 ## Notes
 

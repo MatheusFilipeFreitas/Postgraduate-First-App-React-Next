@@ -1,7 +1,7 @@
 // =============================================================================
 // FILE: MediumPage
 // =============================================================================
-// Demo page for Client Component interactivity (counter with useState).
+// Demo page for Client Component interactivity (counter, Button composition, controlled input).
 // Server Component (no "use client") — the page itself renders on the server.
 // Route: app/medium/page.tsx → URL /medium
 //
@@ -27,7 +27,7 @@ import Count from "../components/count";
 // Study notes:
 // - page.tsx in app/medium/ maps to the /medium URL segment.
 // - default export: Next.js expects the page component as the default export.
-// - Composition: page provides layout/context; Count handles interactive state.
+// - Composition: page provides layout/context; Count handles state, Button reuse, and input.
 //
 // Used here: heading + Count component on the /medium route.
 
