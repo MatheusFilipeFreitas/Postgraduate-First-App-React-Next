@@ -3,7 +3,7 @@
 // =============================================================================
 // Wraps the Next.js Image component with optimized loading defaults.
 // Server Component (no "use client") — renders on the server.
-// Used in: app/start/[name]/page.tsx
+// Used in: app/page.tsx, app/start/[name]/page.tsx
 
 // =============================================================================
 // TOPIC: next/image import

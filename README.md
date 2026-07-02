@@ -37,16 +37,19 @@ pnpm lint    # ESLint
 
 | URL | File | Description |
 |-----|------|-------------|
-| `/` | `app/page.tsx` | Default Next.js home page |
+| `/` | `app/page.tsx` | Home — site nav with Link list and shared ImageComponent (**Server Component**) |
 | `/start` | `app/start/page.tsx` | Name list with links to dynamic profiles (**Client Component**) |
 | `/start/[name]` | `app/start/[name]/page.tsx` | Profile page for a person (**Server Component**, e.g. `/start/Matheus`) |
 | `/medium` | `app/medium/page.tsx` | Global counter via Context — shared state, sessionStorage (**Client Component**) |
 | `/medium/[count]` | `app/medium/[count]/page.tsx` | Local counter demo — useEffect, useParams, controlled input (**Server page + Client Count**) |
+| `/high` | `app/high/page.tsx` | Blog list — async fetch from external API (**Server Component**) |
 
 ## Project structure
 
 ```
 app/
+├── high/
+│   └── page.tsx                # /high — async fetch, API data, list rendering
 ├── medium/
 │   ├── layout.tsx              # Nested layout — wraps /medium routes with CountProvider
 │   ├── page.tsx                # /medium — global count demo (Context consumers)
@@ -55,7 +58,7 @@ app/
 │   ├── page.tsx                # "use client", Link navigation, client-side logging
 │   └── [name]/page.tsx         # Dynamic routes, async Server Components, server logging
 ├── layout.tsx                  # Root layout, fonts, metadata, global padding
-├── page.tsx                    # Home page
+├── page.tsx                    # Home — nav links to all study routes
 └── globals.css                 # Tailwind + theme variables
 components/                     # Shared UI — outside app/ for reuse across routes
 ├── button.tsx                  # Reusable Button, FC, exported ButtonProps, Tailwind colors
@@ -94,11 +97,13 @@ context/
 
 - App Router file-based routing
 - Shared `components/` and `context/` folders at project root (outside `app/`)
+- Path alias `@/` for imports from project root (tsconfig paths)
 - Dynamic routes (`[name]`, `[count]`)
 - Nested layouts (`app/medium/layout.tsx`)
 - `useParams` for reading dynamic URL segments (Client Components)
 - Server Components vs Client Components (`"use client"`)
-- Async Server Components (`async` pages, `await params`)
+- Async Server Components (`async` pages, `await params`, `await fetch`)
+- Data fetching with `fetch` in Server Components (no useEffect)
 - Server vs client logging (terminal vs browser DevTools)
 - `next/link` client-side navigation
 - `next/image` optimization
@@ -148,6 +153,8 @@ This project demonstrates both rendering models side by side:
 |------|-----------|-----------------|
 | `/start` | `"use client"` | Browser DevTools |
 | `/start/[name]` | none (Server Component) | Terminal (`pnpm dev`) |
+| `/` (home) | none (Server Component) | — |
+| `/high` | none (async Server Component) | fetch runs on server |
 | `Hobbies` component | none (Server Component) | Terminal (`pnpm dev`) |
 | `/medium` page | `"use client"` | Context consumers; sessionStorage in browser |
 | `/medium/[count]` page | none (Server Component shell) | — |
@@ -156,7 +163,7 @@ This project demonstrates both rendering models side by side:
 | `GlobalCount` / `GlobalValueCount` | `"use client"` | Re-render when shared context count changes |
 | `Button` component | none (composed inside clients) | — |
 
-Visit `/start` and open DevTools for client logs. Visit `/start/Matheus` and check the terminal for server logs. Visit `/medium` and click Increment — both global count displays update together; refresh keeps the value via sessionStorage. Visit `/medium/42` for the local counter with `useParams` logging in DevTools.
+Visit `/` for navigation to all study routes. Visit `/start` and open DevTools for client logs. Visit `/start/Matheus` and check the terminal for server logs. Visit `/medium` and click Increment — both global count displays update together; refresh keeps the value via sessionStorage. Visit `/medium/42` for the local counter with `useParams` logging in DevTools. Visit `/high` for a server-fetched blog list.
 
 ## Notes
 
