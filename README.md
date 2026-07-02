@@ -47,16 +47,6 @@ pnpm lint    # ESLint
 
 ```
 app/
-├── components/
-│   ├── button.tsx              # Reusable Button, FC, exported ButtonProps, Tailwind colors
-│   ├── count.tsx               # Local useState, useEffect, useParams, controlled input
-│   ├── global-count.tsx        # useContext consumer — updates shared count
-│   ├── global-value-count.tsx  # useContext consumer — read-only display
-│   ├── hobbies.tsx             # Arrays, fragments, list rendering, keys
-│   ├── image.tsx               # next/image, priority, accessibility
-│   └── name-component.tsx      # TypeScript types, FC, props, conditional JSX
-├── context/
-│   └── count.context.tsx       # CountContext, CountProvider, sessionStorage sync
 ├── medium/
 │   ├── layout.tsx              # Nested layout — wraps /medium routes with CountProvider
 │   ├── page.tsx                # /medium — global count demo (Context consumers)
@@ -67,6 +57,16 @@ app/
 ├── layout.tsx                  # Root layout, fonts, metadata, global padding
 ├── page.tsx                    # Home page
 └── globals.css                 # Tailwind + theme variables
+components/                     # Shared UI — outside app/ for reuse across routes
+├── button.tsx                  # Reusable Button, FC, exported ButtonProps, Tailwind colors
+├── count.tsx                   # Local useState, useEffect, useParams, controlled input
+├── global-count.tsx            # useContext consumer — updates shared count (null-safe)
+├── global-value-count.tsx      # useContext consumer — read-only display
+├── hobbies.tsx                 # Arrays, fragments, list rendering, keys
+├── image.tsx                   # next/image, priority, accessibility
+└── name-component.tsx          # TypeScript types, FC, props, conditional JSX
+context/
+└── count.context.tsx           # CountContext, CountProvider, exported CountType, sessionStorage
 ```
 
 ## Concepts covered
@@ -93,6 +93,7 @@ app/
 ### Next.js
 
 - App Router file-based routing
+- Shared `components/` and `context/` folders at project root (outside `app/`)
 - Dynamic routes (`[name]`, `[count]`)
 - Nested layouts (`app/medium/layout.tsx`)
 - `useParams` for reading dynamic URL segments (Client Components)
@@ -108,10 +109,11 @@ app/
 
 ### TypeScript
 
-- Custom types (`Person`, `CountContextType`)
+- Custom types (`Person`, `CountContextType`, exported `CountType`)
 - Typed props and arrays (`string[]`)
 - Component signatures with generics
 - `Dispatch<SetStateAction<T>>` for context setters
+- Nullish coalescing (`??`) for nullable context state before hydration
 
 ### Browser APIs
 

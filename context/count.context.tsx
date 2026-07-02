@@ -20,7 +20,7 @@
 
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 
-type CountType = number | null;
+export type CountType = number | null;
 
 type CountContextType = {
     count: CountType;
@@ -41,6 +41,7 @@ export const CountContext = createContext<CountContextType>({
 // - Mount effect reads 'count' from sessionStorage and hydrates state.
 // - [count] effect writes back whenever count changes so refresh keeps the value.
 // - count starts as null until hydration; display components should handle null if needed.
+// - CountType is exported so consumers can type helpers (e.g. normalizeCount in GlobalCount).
 //
 // Used here: /medium layout wraps pages so GlobalCount and GlobalValueCount stay in sync.
 

@@ -16,7 +16,7 @@
 //
 // Used here: GlobalCount and GlobalValueCount on /medium share context from this Provider.
 
-import CountProvider from "../context/count.context";
+import CountProvider from "../../context/count.context";
 
 export default function Layout({
   children,

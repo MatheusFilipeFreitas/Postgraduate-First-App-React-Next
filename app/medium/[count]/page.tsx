@@ -25,11 +25,11 @@
 // Study notes:
 // - A Server Component page can import CountComponent ("use client").
 // - Next.js sends the Client bundle to the browser for hydration.
-// - Relative import ../../components/count resolves from app/medium/[count]/ to app/components/.
+// - Relative import ../../../components/count resolves from app/medium/[count]/ to project-root components/.
 //
 // Used here: page title + CountComponent on /medium/[count].
 
-import CountComponent from "../../components/count";
+import CountComponent from "../../../components/count";
 
 const MediumCountPage = () => {
     return (

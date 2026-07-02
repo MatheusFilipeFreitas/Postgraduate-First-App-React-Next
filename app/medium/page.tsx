@@ -1,7 +1,7 @@
 'use client';
 
-import { GlobalCount } from "../components/global-count";
-import { GlobalValueCount } from "../components/global-value-count";
+import { GlobalCount } from "../../components/global-count";
+import { GlobalValueCount } from "../../components/global-value-count";
 
 // =============================================================================
 // TOPIC: "use client" on a page
@@ -12,6 +12,7 @@ import { GlobalValueCount } from "../components/global-value-count";
 // - Compare with app/medium/[count]/page.tsx: Server page importing a Client Component (CountComponent).
 //
 // Used here: demo of shared global state via Context on the /medium index route.
+// Imports from project-root components/ (../../components/ from app/medium/).
 
 // =============================================================================
 // FILE: MediumPage (index)

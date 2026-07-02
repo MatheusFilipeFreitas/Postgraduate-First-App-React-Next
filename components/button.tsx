@@ -4,7 +4,7 @@
 // Reusable styled button with configurable label, color, and click handler.
 // No "use client" directive — imported by Count (Client Component), so it
 // ships in the client bundle and can receive onClick handlers.
-// Used in: app/components/count.tsx
+// Used in: components/count.tsx
 
 // =============================================================================
 // TOPIC: FC and exported prop types

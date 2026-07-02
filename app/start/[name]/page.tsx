@@ -17,9 +17,9 @@
 // Used here: compose shared components and add a back link.
 
 import Link from "next/link";
-import { Hobbies } from "../../components/hobbies";
-import { ImageComponent } from "../../components/image";
-import NameComponent from "../../components/name-component";
+import { Hobbies } from "../../../components/hobbies";
+import { ImageComponent } from "../../../components/image";
+import NameComponent from "../../../components/name-component";
 
 // =============================================================================
 // TOPIC: Page props and dynamic route params
