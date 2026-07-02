@@ -1,25 +1,24 @@
-// =============================================================================
-// FILE: MediumPage
-// =============================================================================
-// Demo page for Client Component interactivity (counter, useEffect, Button composition, controlled input).
-// Server Component (no "use client") — the page itself renders on the server.
-// Route: app/medium/page.tsx → URL /medium
-//
-// Study note: Server pages can import and render Client Components.
-// Count runs in the browser; MediumPage shell is rendered on the server.
+'use client';
+
+import { GlobalCount } from "../components/global-count";
+import { GlobalValueCount } from "../components/global-value-count";
 
 // =============================================================================
-// TOPIC: Importing Client Components from a Server page
+// TOPIC: "use client" on a page
 // =============================================================================
 // Study notes:
-// - A Server Component page can import a Client Component (Count has "use client").
-// - Next.js sends the Client Component bundle to the browser for hydration.
-// - The page does not need "use client" unless it uses hooks or events itself.
-// - Relative import ../components/count resolves from app/medium/ to app/components/.
+// - This page uses "use client" because it renders context consumers (GlobalCount, GlobalValueCount).
+// - CountProvider lives in app/medium/layout.tsx — this page is a child of that Provider.
+// - Compare with app/medium/[count]/page.tsx: Server page importing a Client Component (CountComponent).
 //
-// Used here: MediumPage wraps Count and adds a page title.
+// Used here: demo of shared global state via Context on the /medium index route.
 
-import Count from "../components/count";
+// =============================================================================
+// FILE: MediumPage (index)
+// =============================================================================
+// Global counter demo — two components reading the same CountContext value.
+// Client Component ("use client") — context consumers run in the browser.
+// Route: app/medium/page.tsx → URL /medium
 
 // =============================================================================
 // TOPIC: Page component
@@ -27,15 +26,16 @@ import Count from "../components/count";
 // Study notes:
 // - page.tsx in app/medium/ maps to the /medium URL segment.
 // - default export: Next.js expects the page component as the default export.
-// - Composition: page provides layout/context; Count handles state, effects, Button reuse, and input.
+// - GlobalCount updates count; GlobalValueCount displays it — both stay in sync via context.
 //
-// Used here: heading + Count component on the /medium route.
+// Used here: heading + two context consumers on the /medium route.
 
 const MediumPage = () => {
     return (
         <div>
             <h1 className="text-2xl font-bold">Medium Page</h1>
-            <Count />
+            <GlobalCount />
+            <GlobalValueCount />
         </div>
     );
 };

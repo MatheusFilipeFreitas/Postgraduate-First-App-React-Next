@@ -15,7 +15,7 @@
 // =============================================================================
 // Interactive counter with Button components, controlled input, and useEffect side effects.
 // Client Component ("use client") — state and events run in the browser.
-// Used in: app/medium/page.tsx
+// Used in: app/medium/[count]/page.tsx
 
 // =============================================================================
 // TOPIC: useState hook
@@ -28,13 +28,25 @@
 //
 // Used here: count starts at 0; inputValue starts at "initial value".
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button, { ButtonProps } from "./button";
 import { useParams } from "next/navigation";
 
-const Count = () => {
+const CountComponent = () => {
     const [count, setCount] = useState(0);
     const [inputValue, setInputValue] = useState("initial value");
+
+    // =========================================================================
+    // TOPIC: useParams (dynamic route segments)
+    // =========================================================================
+    // Study notes:
+    // - useParams() returns an object of dynamic segments for the current URL.
+    // - On /medium/42 the [count] folder yields { count: "42" } (values are strings).
+    // - Changing the URL segment re-renders the component with new params.
+    // - Requires a Client Component — useParams reads browser routing state.
+    //
+    // Used here: log urlParams on render and when the route segment changes.
+
     const urlParams = useParams();
 
     console.log("URL Params: ", urlParams);
@@ -194,4 +206,4 @@ const Count = () => {
     )
 };
 
-export default Count;
+export default CountComponent;
